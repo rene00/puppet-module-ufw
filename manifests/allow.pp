@@ -32,7 +32,7 @@ define ufw::allow($proto='tcp', $port='all', $ip='', $from='any', $direction='in
       'all'   => "ufw status | grep -E \"$ipadr/$proto +ALLOW +$from_match\"",
       default => "ufw status | grep -E \"$ipadr $port/$proto +ALLOW +$from_match\"",
     },
-    require => Exec['ufw-default-deny'],
+    require => Exec['ufw-default-deny-in', 'ufw-default-deny-out'],
     before  => Exec['ufw-enable'],
   }
 }
